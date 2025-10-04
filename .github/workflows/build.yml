@@ -31,7 +31,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build for x86 Linux
+      - name: Build for arm Linux
         run: cargo build --release
 
       - name: Rename binary
@@ -104,7 +104,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: termlogo-linux
-          path: ./linux/termlogo-linux-arm
+          path: ./linux-arm/termlogo-linux-arm
 
       - name: Download Windows artifact
         uses: actions/download-artifact@v4
@@ -125,6 +125,6 @@ jobs:
           tag_name: ${{ github.ref }}
           files: |
             ./linux/termlogo/termlogo-linux
-            ./linux/termlogo-linux-arm/termlogo-linux-arm
+            ./linux-arm/termlogo-linux-arm/termlogo-linux-arm
             ./windows/termlogo.exe
             ./macos/termlogo/termlogo-macos
