@@ -25,6 +25,25 @@ jobs:
           name: termlogo-linux
           path: target/release/termlogo-linux
 
+  build-linux-arm:
+    runs-on:  ubuntu-22.04-arm
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build for x86 Linux
+        run: cargo build --release
+
+      - name: Rename binary
+        run: |
+          mv target/release/termlogo target/release/termlogo-linux-arm
+
+      - name: Archive Linux Arm Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: termlogo-linux-arm
+          path: target/release/termlogo-linux-arm
+
   build-windows:
     runs-on: ubuntu-latest
     steps:
@@ -70,15 +89,22 @@ jobs:
     permissions:
       id-token: write
       contents: write
-    needs: [ build-linux, build-windows, build-macos ]
+    needs: [ build-linux, build-windows, build-macos, build-linux-arm ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Download Linux artifact
         uses: actions/download-artifact@v4
         with:
           name: termlogo-linux
           path: ./linux/termlogo
+
+      - name: Download Linux arm artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: termlogo-linux
+          path: ./linux/termlogo-linux-arm
 
       - name: Download Windows artifact
         uses: actions/download-artifact@v4
@@ -99,5 +125,6 @@ jobs:
           tag_name: ${{ github.ref }}
           files: |
             ./linux/termlogo/termlogo-linux
+            ./linux/termlogo-linux-arm/termlogo-linux-arm
             ./windows/termlogo.exe
             ./macos/termlogo/termlogo-macos
