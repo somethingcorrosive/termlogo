@@ -118,6 +118,13 @@ jobs:
           name: termlogo-macos
           path: ./macos/termlogo
 
+      - name: check directory for files ( test ) (removeme)
+        run: |
+          ls -ltr ./linux/
+          ls -ltr ./linux-arm/
+          ls -ltr ./linux-arm/termlogo-linux-arm/
+          ls -ltr ./linux/termlogo/
+
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
