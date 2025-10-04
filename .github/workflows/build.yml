@@ -103,7 +103,7 @@ jobs:
       - name: Download Linux arm artifact
         uses: actions/download-artifact@v4
         with:
-          name: termlogo-linux
+          name: termlogo-linux-arm
           path: ./linux-arm/termlogo-linux-arm
 
       - name: Download Windows artifact
@@ -117,13 +117,6 @@ jobs:
         with:
           name: termlogo-macos
           path: ./macos/termlogo
-
-      - name: check directory for files ( test ) (removeme)
-        run: |
-          ls -ltr ./linux/
-          ls -ltr ./linux-arm/
-          ls -ltr ./linux-arm/termlogo-linux-arm/
-          ls -ltr ./linux/termlogo/
 
       - name: Create Release
         id: create_release
